@@ -20,7 +20,7 @@ class Department_serializer(serializers.ModelSerializer):
 class Doctor_serializer(serializers.ModelSerializer):
     class Meta:
         model = Doctor
-        fields = ['id','name','experience','is_available','tokens','department_id','hospital_id']
+        fields = ['id','name','experience','is_available','tokens','department_id','hospital_id','fee']
 
 
         

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 
@@ -28,7 +29,8 @@ class Doctor(models.Model):
     experience = models.FloatField(max_length=4)
     hospital =models.ForeignKey(Hospital,on_delete=models.CASCADE)
     department = models.ForeignKey(Department,on_delete=models.CASCADE)
-    tokens = models.CharField(max_length=100)
+    tokens = ArrayField(models.CharField(max_length=100))
+    fee =models.IntegerField()
     is_available = models.BooleanField(default=True)
 
 

@@ -1,5 +1,5 @@
 from django.db import models
-
+from hospitalAccounts.models import Doctor
 # Create your models here.
 
 
@@ -13,3 +13,15 @@ class User(models.Model):
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
     
+
+class Booking(models.Model):
+
+    name = models.CharField(max_length=20)
+    age = models.IntegerField()
+    phone = models.CharField(max_length=10)
+    token = models.IntegerField()
+    date = models.DateField()
+    address = models.CharField(max_length=100)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    doctor = models.ForeignKey(Doctor,on_delete=models.CASCADE)
+

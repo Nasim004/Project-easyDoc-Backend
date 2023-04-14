@@ -10,6 +10,7 @@ from django.dispatch import receiver
 from django.core.mail import send_mail
 from django.conf import settings
 
+
 class Sign_up(APIView):
 
     def post(self, request):
@@ -23,7 +24,7 @@ class Sign_up(APIView):
             email = request.data['email']
             muncipality = request.data['muncipality']
             district = request.data['district']
-            description=request.data['description']
+            description = request.data['description']
             password = request.data['password']
 
         except:
@@ -53,12 +54,16 @@ class Sign_up(APIView):
         )
 
         hospital.save()
-        # send_mail('New Hospital Account Created',
-        # 'Hello Admin new hospital is registered . The hospital name is ',
-        # 'test6263075@gmail.com',
-        # ['nasimmohammed2690@gmail.com'],
-        # fail_silently=False 
-        # )
+        send_mail('New Hospital Account Created',
+        'Hello Admin, a new hospital is registered. The hospital name is {}.'.format(name),
+        'settings.EMAIL_HOST_USER',
+        ['nasimmohammed260@gmail.com'],
+        fail_silently=False
+        )
+
+        # send_email(name)
+
+
         return Response({'status': 'Success'})
 
 
@@ -87,18 +92,21 @@ class Doctor_add(APIView):
         department = Department.objects.get(id=department_id)
         hospital_id = request.data['hospital_id']
         hospital = Hospital.objects.get(id=hospital_id)
+        fee = request.data['fee']
         tokens = request.data['tokens']
+
+        token = [int(x) for x in tokens.split(',')]
 
         doctor = Doctor.objects.create(
             name=name,
             experience=experience,
             hospital=hospital,
             department=department,
-            tokens=tokens,
+            fee=fee,
+            tokens=token,
 
         )
         doctor.save()
-
         return Response("Doctor Created")
 
 
@@ -133,5 +141,4 @@ def create_notification(sender, instance, created, **kwargs):
         notification = Notifications()
         notification.message = instance.name
         notification.save()
-
 

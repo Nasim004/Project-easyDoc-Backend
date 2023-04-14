@@ -2,15 +2,15 @@ from rest_framework.response import Response
 from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
-from userAccounts.serializers import User_Serializer
-from userAccounts.models import User
+from userAccounts.serializers import User_Serializer, Booking_Serializer
+from userAccounts.models import User, Booking
 import jwt
 from django.contrib.auth.hashers import make_password, check_password
 import json
 import base64
 import random
-from hospitalAccounts.models import Hospital
-from hospitalAccounts.serializers import Hospital_Serializer
+from hospitalAccounts.models import Hospital, Doctor
+from hospitalAccounts.serializers import Hospital_Serializer, Doctor_serializer
 
 
 class Sign_up(APIView):
@@ -54,7 +54,6 @@ class Sign_up(APIView):
 
 
 class Login(APIView):
-
     def post(self, request):
 
         try:
@@ -163,12 +162,11 @@ def change_password(request, id):
     return Response("Old Password Is Wrong")
 
 
-
 @api_view(["GET"])
 def randomHospital(request):
     hospitals = Hospital.objects.filter(is_approved=True)
-    hospital = random.sample(list(hospitals),4)
-    serializer = Hospital_Serializer(hospital,many=True)
+    hospital = random.sample(list(hospitals), 4)
+    serializer = Hospital_Serializer(hospital, many=True)
     return Response(serializer.data)
 
 
@@ -177,3 +175,58 @@ def Hospital_details(request):
     hospital = Hospital.objects.filter(is_approved=True)
     serializer = Hospital_Serializer(hospital, many=True)
     return Response(serializer.data)
+
+
+@api_view(["GET"])
+def Hospital_detail(request, id):
+    hospital = Hospital.objects.get(id=id)
+    serializer = Hospital_Serializer(hospital)
+    return Response(serializer.data)
+
+
+@api_view(["GET"])
+def Doctor_detail(request, id):
+    doctor = Doctor.objects.filter(hospital_id=id)
+    serializer = Doctor_serializer(doctor, many=True)
+    return Response(serializer.data)
+
+
+class Bookings(APIView):
+    def post(self, request):
+        try:
+            name = request.data['name']
+            age = request.data['age']
+            phone = request.data['phone']
+            token = request.data['token']
+            date = request.data['date']
+            address = request.data['address']
+            user_id = request.data['user_id']
+            doctor_id = request.data['id']
+
+        except:
+            return Response({"status": "Please give all details"})
+
+        booking = Booking.objects.create(
+            name=name,
+            age=age,
+            phone=phone,
+            token=token,
+            date=date,
+            address=address,
+            user_id=user_id,
+            doctor_id=doctor_id,
+        )
+        booking.save()
+
+        return Response({'staus': "Success"})
+
+
+
+
+@api_view(["GET"])
+def tokens(request,id):
+    tokens = Doctor.objects.filter(id=id).values('tokens')
+    # serializer = Doctor_serializer(tokens,many=True)
+    # return Response(serializer.data)
+    return Response(tokens)
+

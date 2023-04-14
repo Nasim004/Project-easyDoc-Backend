@@ -73,7 +73,7 @@ MIDDLEWARE = [
 
 
 
-    
+
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -105,8 +105,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'easyDoc',
         'USER': 'postgres',
-        'PASSWORD':'12345',
-        'HOST':'localhost',
+        'PASSWORD': '12345',
+        'HOST': 'localhost',
 
     }
 }
@@ -151,18 +151,16 @@ STATIC_URL = 'static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD ='django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 CORS_ALLOW_ALL_ORIGINS = True
-
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'test6263075@gmail.com'
-EMAIL_HOST_PASSWORD = 'testing@123'
+EMAIL_HOST_PASSWORD = 'fphxjnvwtaryefih'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-
