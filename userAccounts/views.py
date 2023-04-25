@@ -1,4 +1,4 @@
-from rest_framework.response import Response
+from rest_framework.response import Response    
 from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
@@ -21,8 +21,6 @@ class Sign_up(APIView):
             name = request.data['name']
             email = request.data['email']
             phone = request.data['phone']
-            muncipality = request.data['muncipality']
-            district = request.data['district']
             password = make_password(request.data['password'])
         except:
             return Response({'status': 'Please Provide The Details(name,email,phone,muncipality,district,password)'})
@@ -44,8 +42,6 @@ class Sign_up(APIView):
             name=name,
             email=email,
             phone=phone,
-            muncipality=muncipality,
-            district=district,
             password=password,
         )
         user.save()
@@ -125,8 +121,6 @@ def profileUpdate(request, id):
         name = request.data['name']
         phone = request.data['phone']
         email = request.data['email']
-        muncipality = request.data['muncipality']
-        district = request.data['district']
     except:
         return Response('Please provide all details')
 
@@ -140,8 +134,6 @@ def profileUpdate(request, id):
     user.name = name
     user.email = email
     user.phone = phone
-    user.muncipality = muncipality
-    user.district = district
     user.save()
 
     return Response("Profile Updated Successfully")
@@ -197,7 +189,7 @@ class Bookings(APIView):
             name = request.data['name']
             age = request.data['age']
             phone = request.data['phone']
-            token = request.data['token']
+            token = request.data['bookingtoken']
             date = request.data['date']
             address = request.data['address']
             user_id = request.data['user_id']
@@ -229,4 +221,7 @@ def tokens(request,id):
     # serializer = Doctor_serializer(tokens,many=True)
     # return Response(serializer.data)
     return Response(tokens)
+
+
+
 

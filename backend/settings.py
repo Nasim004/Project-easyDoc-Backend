@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -33,8 +33,8 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
 
 
-    'rest_framework',
     'corsheaders',
+    'rest_framework',
 
 
 
@@ -56,13 +56,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
 
     'corsheaders.middleware.CorsMiddleware',
-
-
-
-
-
-
-
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -164,3 +157,8 @@ EMAIL_HOST_USER = 'test6263075@gmail.com'
 EMAIL_HOST_PASSWORD = 'fphxjnvwtaryefih'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+
+# CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
+
+

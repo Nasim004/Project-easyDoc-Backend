@@ -5,8 +5,7 @@ from userAccounts.models import User,Booking
 class User_Serializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['name', 'email', 'phone', 'muncipality',
-                  'district', 'password', 'is_active','id']
+        fields = '__all__'
 
 class Booking_Serializer(serializers.ModelSerializer):
     class Meta:

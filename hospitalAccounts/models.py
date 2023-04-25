@@ -16,6 +16,7 @@ class Hospital(models.Model):
     muncipality = models.CharField(max_length=30)
     district = models.CharField(max_length=30)
     description = models.CharField(max_length=500)
+    image = models.ImageField( upload_to='images',null=True,blank=True)
     is_approved = models.BooleanField(default=False)
 
 
@@ -34,5 +35,4 @@ class Doctor(models.Model):
     is_available = models.BooleanField(default=True)
 
 
-class Notifications(models.Model):
-    message = models.CharField(max_length=200)
+

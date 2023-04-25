@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from .authentications import check_user
 from rest_framework.decorators import api_view
 import jwt
-from hospitalAccounts.models import Hospital, Department, Doctor, Notifications
+from hospitalAccounts.models import Hospital, Department, Doctor
 from hospitalAccounts.serializers import Doctor_serializer, Department_serializer
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -135,10 +135,5 @@ def Doctor_availablity(request, id):
     return Response(" Availablity Updated")
 
 
-@receiver(post_save, sender=Hospital)
-def create_notification(sender, instance, created, **kwargs):
-    if created:
-        notification = Notifications()
-        notification.message = instance.name
-        notification.save()
+
 
