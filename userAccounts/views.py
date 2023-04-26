@@ -198,6 +198,10 @@ class Bookings(APIView):
         except:
             return Response({"status": "Please give all details"})
 
+        
+        hospital_id = Doctor.objects.filter(id=doctor_id).values('hospital_id')
+
+
         booking = Booking.objects.create(
             name=name,
             age=age,
@@ -207,6 +211,7 @@ class Bookings(APIView):
             address=address,
             user_id=user_id,
             doctor_id=doctor_id,
+            hospital_id = hospital_id
         )
         booking.save()
 
@@ -217,10 +222,16 @@ class Bookings(APIView):
 
 @api_view(["GET"])
 def tokens(request,id):
-    tokens = Doctor.objects.filter(id=id).values('tokens')
-    # serializer = Doctor_serializer(tokens,many=True)
-    # return Response(serializer.data)
+    tokens = Doctor.objects.filter(id=id).values('tokens','fee')
     return Response(tokens)
+
+
+
+@api_view(['GET'])
+def optickets(request,id):
+    tickets = Booking.objects.filter(user_id=id).order_by('-id')
+    serializer = Booking_Serializer(tickets,many=True)
+    return Response(serializer.data)
 
 
 

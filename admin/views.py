@@ -141,3 +141,12 @@ def Counts(request):
     users = User.objects.all().count()
     doctors = Doctor.objects.all().count()
     return Response({'users':users,'hospital':hospital,'departments':departments,'doctors':doctors})
+
+
+
+@api_view(['GET'])
+def departments(request,id):
+    department = Department.objects.get(id=id)
+    serializer = Department_serializer(department,many=False)
+    return Response(serializer.data)
+    

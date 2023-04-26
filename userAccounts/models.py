@@ -1,5 +1,5 @@
 from django.db import models
-from hospitalAccounts.models import Doctor
+from hospitalAccounts.models import Doctor,Hospital
 # Create your models here.
 
 
@@ -22,4 +22,6 @@ class Booking(models.Model):
     address = models.CharField(max_length=100)
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     doctor = models.ForeignKey(Doctor,on_delete=models.CASCADE)
+    hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE)
+    
 

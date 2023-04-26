@@ -4,12 +4,13 @@ from .authentications import check_user
 from rest_framework.decorators import api_view
 import jwt
 from hospitalAccounts.models import Hospital, Department, Doctor
-from hospitalAccounts.serializers import Doctor_serializer, Department_serializer
+from hospitalAccounts.serializers import Doctor_serializer, Department_serializer 
+from userAccounts.serializers import Booking_Serializer
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.mail import send_mail
 from django.conf import settings
-
+from userAccounts.models import Booking
 
 class Sign_up(APIView):
 
@@ -113,8 +114,8 @@ class Doctor_add(APIView):
 @api_view(['GET'])
 def Doctor_details(request, hospital_id):
     doctors = Doctor.objects.filter(hospital_id=hospital_id)
-    serializer1 = Doctor_serializer(doctors, many=True)
-    return Response(serializer1.data)
+    serializer = Doctor_serializer(doctors, many=True)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
@@ -137,3 +138,8 @@ def Doctor_availablity(request, id):
 
 
 
+@api_view(['GET'])
+def appointments(request,id):
+    appointment = Booking.objects.filter(hospital_id=id)
+    serializer = Booking_Serializer(appointment,many=True)
+    return Response(serializer.data)

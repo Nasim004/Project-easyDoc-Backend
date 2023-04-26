@@ -9,6 +9,7 @@ urlpatterns = [
     path('hospital_approval/<int:id>',  views.Hospital_approval, name='hospital_approval'),
     path('hospital_delete/<int:id>', views.Hospital_delete, name='hospital_delete'),
     path('department', views.Department_details, name='department_details'),
+    path('departments/<int:id>', views.departments, name='departments'),
     path('department_add', views.Department_add.as_view(), name='department_add'),
     path('department_delete/<int:id>', views.Department_delete, name='department_delete'),
     path('user', views.User_details, name="user_details"),
