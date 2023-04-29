@@ -56,7 +56,7 @@ class Sign_up(APIView):
 
         hospital.save()
         send_mail('New Hospital Account Created',
-        'Hello Admin, a new hospital is registered. The hospital name is {}.'.format(name),
+        'Hello Admin, a new hospital is registered. The hospital name is {}. http://localhost:3000/admin/hospital'.format(name),
         'settings.EMAIL_HOST_USER',
         ['nasimmohammed260@gmail.com'],
         fail_silently=False
