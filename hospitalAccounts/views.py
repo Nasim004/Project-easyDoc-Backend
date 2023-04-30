@@ -99,7 +99,7 @@ class Doctor_add(APIView):
         token = [int(x) for x in tokens.split(',')]
 
         doctor = Doctor.objects.create(
-            name=name,
+            name='Dr.'+ name,
             experience=experience,
             hospital=hospital,
             department=department,
