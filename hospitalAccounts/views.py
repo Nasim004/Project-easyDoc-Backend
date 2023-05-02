@@ -113,7 +113,7 @@ class Doctor_add(APIView):
 
 @api_view(['GET'])
 def Doctor_details(request, hospital_id):
-    doctors = Doctor.objects.filter(hospital_id=hospital_id)
+    doctors = Doctor.objects.filter(hospital_id=hospital_id).order_by('id')
     serializer = Doctor_serializer(doctors, many=True)
     return Response(serializer.data)
 

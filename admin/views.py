@@ -54,7 +54,7 @@ class Login(APIView):
 
 @api_view(['GET'])
 def Hospital_details(request):
-    hospital = Hospital.objects.all()
+    hospital = Hospital.objects.all().order_by('id')
     serializer = Hospital_Serializer(hospital, many=True)
     return Response(serializer.data)
 
@@ -103,7 +103,7 @@ class Department_add(APIView):
 
 @api_view(['GET'])
 def Department_details(request):
-    department = Department.objects.all()
+    department = Department.objects.all().order_by('id')
     serializer = Department_serializer(department, many=True)
     return Response(serializer.data)
 
@@ -117,7 +117,7 @@ def Department_delete(request, id):
 
 @api_view(['GET'])
 def User_details(request):
-    user = User.objects.all()
+    user = User.objects.all().order_by('id')
     serializer = User_Serializer(user, many=True)
     return Response(serializer.data)
 
