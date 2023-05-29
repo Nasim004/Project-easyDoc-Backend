@@ -17,6 +17,8 @@ urlpatterns = [
     path('booking', views.Bookings.as_view(), name='booking'),
     path('token/<int:id>', views.tokens, name='tokens'),
     path('optickets/<int:id>', views.optickets, name='optickets'),
+    path('login_test',views.LoginMachine.as_view(),name='login_test')
+    
 
 
 ]

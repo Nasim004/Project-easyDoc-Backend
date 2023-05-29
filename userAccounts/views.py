@@ -236,3 +236,25 @@ def optickets(request,id):
 
 
 
+
+from django.contrib.auth import authenticate
+class LoginMachine(APIView):
+    def post(self,request):
+        try:
+            username = request.data['username']
+            password = request.data['password']
+        except:
+            return Response("Please give all details")
+        
+        user = authenticate(username=username,password=password)
+        if user is not None:
+            payload={
+                'username':username,
+                "password":password
+            }
+            jwt_token = jwt.encode({'payload':payload},'secret',algorithm='HS256')
+            response = Response({'status':'Logged','payload':payload,'jwt':jwt_token})
+            return response
+        else:
+            return Response("Account not exist")
+            
